@@ -35,6 +35,7 @@ gem 'jbuilder', '~> 2.5'
 
 group :development, :test do
   gem 'rspec'
+  gem 'rubocop', '~> 0.63.1', require: false
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
