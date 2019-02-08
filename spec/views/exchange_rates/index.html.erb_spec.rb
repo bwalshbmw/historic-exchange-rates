@@ -1,12 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'exchange_rates/index' do
-  it 'should render the index template' do
-    render
-
-    expect(view).to render_template(:index)
-  end
-
   it 'should display the page title' do
     render plain: 'Historic Exchange Rates'
 
