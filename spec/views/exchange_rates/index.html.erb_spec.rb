@@ -8,8 +8,8 @@ RSpec.describe 'exchange_rates/index' do
   end
 
   it 'should display the exchange rate line chart partial' do
-    render partial: 'exchange_rate_graphs/_line_chart.html.erb'
+    render partial: 'exchange_rates/line_chart.html.erb'
 
-    expect(rendered).to include(partial)
+    expect(response).to include('historic-exchange-rates-chart')
   end
 end
