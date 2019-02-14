@@ -12,4 +12,10 @@ RSpec.describe 'exchange_rates/index' do
 
     expect(response).to include('historic-exchange-rates-chart')
   end
+
+  it 'should render the form for changing the charted currencies' do
+    render partial: 'exchange_rates/form.html.erb'
+
+    expect(response).to include('form')
+  end
 end
