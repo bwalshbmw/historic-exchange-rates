@@ -8,6 +8,8 @@ class ChartsController < ApplicationController
   private
 
   def requested_currencies
-    'EUR,USD,AUD'
+    return 'EUR,USD,AUD' if session[:currency].blank?
+
+    session[:currency]
   end
 end
