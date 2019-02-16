@@ -95,6 +95,7 @@ RSpec.describe RateGetterService, type: :service do
 
           expect(euro_series[:name]).to eq 'EUR'
           expect(euro_series[:data]).to eq service.euro_data
+          expect(euro_series[:color]).to eq ['#fdcb0b']
         end
       end
 
