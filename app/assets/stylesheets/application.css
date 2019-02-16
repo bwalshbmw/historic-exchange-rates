@@ -51,3 +51,12 @@
   background: #00008b;
   color: white;
 }
+
+.reset {
+  border-color: #e7e7e7;
+  color: black;
+}
+
+.reset:hover {
+  background: #e7e7e7;
+}
