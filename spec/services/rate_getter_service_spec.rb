@@ -3,6 +3,12 @@ require 'rails_helper'
 # rubocop:disable Metrics/BlockLength
 RSpec.describe RateGetterService, type: :service do
   let(:service) { RateGetterService.new('EUR,USD,AUD') }
+  let(:sample_euro_data) { { '2019-01-02' => 0.2276348737 } }
+  let(:sample_usd_data) { { '2019-01-02' => 0.2594354655 } }
+  let(:sample_aud_data) { { '2019-01-02' => 0.3704302299 } }
+  let(:euro_series) { service.euro_series }
+  let(:usd_series) { service.usd_series }
+  let(:aud_series) { service.aud_series }
 
   describe '#retrieve_and_prepare_data' do
     context 'when the service is called' do
@@ -20,10 +26,13 @@ RSpec.describe RateGetterService, type: :service do
   describe '#build_request_url' do
     context 'when given a specific currency' do
       it 'should be the url for API request using the given currency' do
+        start_date = (Date.today - 1.year).to_s
+        end_date = Date.today.to_s
         currency = 'USD'
         expected_url = ['https://api.exchangeratesapi.io/history?start_at=',
-                        '2018-02-13',
-                        '&end_at=2019-02-13',
+                        start_date,
+                        '&end_at=',
+                        end_date,
                         '&base=BRL',
                         '&symbols=USD'].join
         expect(RateGetterService.new(currency).build_request_url)
@@ -50,36 +59,85 @@ RSpec.describe RateGetterService, type: :service do
 
         service.reorder_json_data(example_data)
 
-        expected_euro_data = { '2019-01-02' => 0.2276348737 }
-        expected_usd_data = { '2019-01-02' => 0.2594354655 }
-        expected_aud_data = { '2019-01-02' => 0.3704302299 }
-
-        expect(service.euro_data).to eq expected_euro_data
-        expect(service.usd_data).to eq expected_usd_data
-        expect(service.aud_data).to eq expected_aud_data
+        expect(service.euro_data).to eq sample_euro_data
+        expect(service.usd_data).to eq sample_usd_data
+        expect(service.aud_data).to eq sample_aud_data
       end
     end
   end
 
   describe '#setup_series_data' do
-    let(:euro_series) { service.euro_series }
-    let(:usd_series) { service.usd_series }
-    let(:aud_series) { service.aud_series }
-    it 'should build the series data array' do
-      expect(service.setup_series_data)
-        .to eq [euro_series, usd_series, aud_series]
+    context 'when the user did not select a currency' do
+      it 'should build the series data array' do
+        allow(service)
+          .to receive(:euro_data).with(any_args) { sample_euro_data }
+        allow(service).to receive(:usd_data).with(any_args) { sample_usd_data }
+        allow(service).to receive(:aud_data).with(any_args) { sample_aud_data }
+
+        expect(service.setup_series_data)
+          .to eq [euro_series, usd_series, aud_series]
+      end
     end
 
-    context 'given the reordered api data' do
-      it 'should convert it to the series data format needed for the chart' do
-        expect(euro_series[:name]).to eq 'EUR'
-        expect(euro_series[:data]).to eq service.euro_data
+    context 'when the user specified they wanted to see AUD currency rates' do
+      it 'should only return series data for AUD' do
+        allow(service).to receive(:aud_data).with(any_args) { sample_aud_data }
 
-        expect(usd_series[:name]).to eq 'USD'
-        expect(usd_series[:data]).to eq service.usd_data
+        expect(service.setup_series_data).to eq [aud_series]
+      end
+    end
 
-        expect(aud_series[:name]).to eq 'AUD'
-        expect(aud_series[:data]).to eq service.aud_data
+    describe '#euro_series' do
+      context 'when EUR was among the requested currencies' do
+        it 'should convert it to the series data format needed for the chart' do
+          allow(service)
+            .to receive(:euro_data).with(any_args) { sample_euro_data }
+
+          expect(euro_series[:name]).to eq 'EUR'
+          expect(euro_series[:data]).to eq service.euro_data
+        end
+      end
+
+      context 'when EUR was not among the requested currencies' do
+        it 'should return nil' do
+          expect(euro_series).to be_nil
+        end
+      end
+    end
+
+    describe '#usd_series' do
+      context 'when USD was among the requested currencies' do
+        it 'should convert it to the series data format needed for the chart' do
+          allow(service)
+            .to receive(:usd_data).with(any_args) { sample_usd_data }
+
+          expect(usd_series[:name]).to eq 'USD'
+          expect(usd_series[:data]).to eq service.usd_data
+        end
+      end
+
+      context 'when USD was not among the requested currencies' do
+        it 'should return nil' do
+          expect(usd_series).to be_nil
+        end
+      end
+    end
+
+    describe '#aud_series' do
+      context 'when AUD was among the requested currencies' do
+        it 'should convert it to the series data format needed for the chart' do
+          allow(service)
+            .to receive(:aud_data).with(any_args) { sample_aud_data }
+
+          expect(aud_series[:name]).to eq 'AUD'
+          expect(aud_series[:data]).to eq service.aud_data
+        end
+      end
+
+      context 'when AUD was not among the requested currencies' do
+        it 'should return nil' do
+          expect(aud_series).to be_nil
+        end
       end
     end
   end

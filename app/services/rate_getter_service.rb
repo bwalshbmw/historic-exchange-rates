@@ -57,18 +57,24 @@ class RateGetterService
   # rubocop:enable Metrics/MethodLength
 
   def setup_series_data
-    [euro_series, usd_series, aud_series]
+    [euro_series, usd_series, aud_series].compact
   end
 
   def euro_series
+    return nil if euro_data.empty?
+
     { name: 'EUR', data: euro_data }
   end
 
   def usd_series
+    return nil if usd_data.empty?
+
     { name: 'USD', data: usd_data }
   end
 
   def aud_series
+    return nil if aud_data.empty?
+
     { name: 'AUD', data: aud_data }
   end
 
