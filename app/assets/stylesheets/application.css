@@ -13,3 +13,51 @@
  *= require_tree .
  *= require_self
  */
+.btn {
+  border: 2px solid black;
+  border-radius: 8px;
+  background-color: white;
+  color: black;
+  padding: 12px 28px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.euro {
+  border-color: #fdb827;
+  color: #fdb827
+}
+
+.euro:hover {
+  background: #fdb827;
+  color: white;
+}
+
+.usd {
+  border-color: #bf0a30;
+  color: #bf0a30
+}
+
+.usd:hover {
+  background: #bf0a30;
+  color: white;
+}
+
+.aud {
+  border-color: #00008b;
+  color: #00008b
+}
+
+.aud:hover {
+  background: #00008b;
+  color: white;
+}
+
+.reset {
+  border-color: #e7e7e7;
+  color: black;
+}
+
+.reset:hover {
+  background: #e7e7e7;
+}

@@ -63,19 +63,19 @@ class RateGetterService
   def euro_series
     return nil if euro_data.empty?
 
-    { name: 'EUR', data: euro_data }
+    { name: 'EUR', data: euro_data, color: ['#fdb827'] }
   end
 
   def usd_series
     return nil if usd_data.empty?
 
-    { name: 'USD', data: usd_data }
+    { name: 'USD', data: usd_data, color: ['#bf0a30'] }
   end
 
   def aud_series
     return nil if aud_data.empty?
 
-    { name: 'AUD', data: aud_data }
+    { name: 'AUD', data: aud_data, color: ['#00008b'] }
   end
 
   def build_request_url
