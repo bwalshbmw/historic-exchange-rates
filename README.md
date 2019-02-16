@@ -4,4 +4,4 @@ This project is used to show how the exchange rates of certain currencies have c
 
 To see the projects planning, please visit the [Projects](https://github.com/bwalshbmw/historic-exchange-rates/projects) of this repo to see how units of work were broken up during the scoping phase.
 
-Data provided by the [Exchange Rates API](https://exchangeratesapi.io/) and the graph was generated using [Chartkick](https://github.com/ankane/chartkick.js).
+Data provided by the [Exchange Rates API](https://exchangeratesapi.io/) and the graph was generated using [Chartkick](https://github.com/ankane/chartkick).
