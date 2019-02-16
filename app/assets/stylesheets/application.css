@@ -41,3 +41,13 @@
   background: #bf0a30;
   color: white;
 }
+
+.aud {
+  border-color: #00008b;
+  color: #00008b
+}
+
+.aud:hover {
+  background: #00008b;
+  color: white;
+}

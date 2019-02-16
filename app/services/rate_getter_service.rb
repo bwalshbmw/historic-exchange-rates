@@ -75,7 +75,7 @@ class RateGetterService
   def aud_series
     return nil if aud_data.empty?
 
-    { name: 'AUD', data: aud_data }
+    { name: 'AUD', data: aud_data, color: ['#00008b'] }
   end
 
   def build_request_url
