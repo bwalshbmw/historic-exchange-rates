@@ -1,4 +1,8 @@
 <%= line_chart charts_historic_rates_path,
     id: 'historic-exchange-rates-chart',
-    messages: {empty: "No data"},
+    title: 'Historic Exchange Rates',
+    prefix: 'R$',
+    decimal: ',',
+    legend: 'bottom',
+    messages: {empty: 'No data'},
     points: false %>
