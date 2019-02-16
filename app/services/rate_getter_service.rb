@@ -69,7 +69,7 @@ class RateGetterService
   def usd_series
     return nil if usd_data.empty?
 
-    { name: 'USD', data: usd_data }
+    { name: 'USD', data: usd_data, color: ['#bf0a30'] }
   end
 
   def aud_series

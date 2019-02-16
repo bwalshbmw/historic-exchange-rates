@@ -113,6 +113,7 @@ RSpec.describe RateGetterService, type: :service do
 
           expect(usd_series[:name]).to eq 'USD'
           expect(usd_series[:data]).to eq service.usd_data
+          expect(usd_series[:color]).to eq ['#bf0a30']
         end
       end
 
