@@ -8,3 +8,9 @@ AllCops:
     - Rakefile
     - spec/spec_helper.rb
     - spec/rails_helper.rb
+Metrics/MethodLength:
+  Exclude:
+    - app/services/rate_getter_service.rb
+Metrics/BlockLength:
+  Exclude:
+    - spec/services/rate_getter_service_spec.rb
