@@ -1,6 +1,5 @@
 require 'rails_helper'
 
-# rubocop:disable Metrics/BlockLength
 RSpec.describe RateGetterService, type: :service do
   let(:service) { RateGetterService.new('EUR,USD,AUD') }
   let(:sample_euro_data) { { '2019-01-02' => 0.2276348737 } }
@@ -145,4 +144,3 @@ RSpec.describe RateGetterService, type: :service do
     end
   end
 end
-# rubocop:enable Metrics/BlockLength

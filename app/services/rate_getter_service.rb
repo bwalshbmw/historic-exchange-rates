@@ -39,7 +39,6 @@ class RateGetterService
     JSON.parse(api_request)
   end
 
-  # rubocop:disable Metrics/MethodLength
   def reorder_json_data(json_data)
     sequential_rates = json_data['rates'].sort.to_h
     sequential_rates.each do |date, rate_hash|
@@ -54,7 +53,6 @@ class RateGetterService
       end
     end
   end
-  # rubocop:enable Metrics/MethodLength
 
   def setup_series_data
     [euro_series, usd_series, aud_series].compact
